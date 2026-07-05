@@ -6,8 +6,11 @@
     <title>The Memories Vault 💝</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* CSS THEME VARIABLES */
+        /* ==========================================
+           CSS THEME ENGINE (LIGHT & DARK VARIATIONS)
+           ========================================== */
         :root {
+            /* 1. DEFAULT SKY (LIGHT) */
             --bg-overlay: rgba(255, 255, 255, 0.1);
             --nav-bg: rgba(255, 255, 255, 0.9);
             --text-color: #333;
@@ -18,7 +21,128 @@
             --border-color: #4ecdc4;
         }
 
-        /* NEON CYBERPUNK THEME overrides */
+        /* 2. TULIP GARDEN (LIGHT) */
+        [data-theme="tulip"] {
+            --nav-bg: rgba(253, 240, 240, 0.95);
+            --text-color: #4a2c2c;
+            --card-front-bg: rgba(255, 255, 255, 0.95);
+            --card-back-bg: #fff5f5;
+            --accent-color: #ff4d6d;
+            --sub-text: #8c6b6b;
+            --border-color: #70e000;
+        }
+
+        /* 3. DORA THE EXPLORER (LIGHT) */
+        [data-theme="dora"] {
+            --nav-bg: rgba(255, 248, 220, 0.95);
+            --text-color: #d32f2f;
+            --card-front-bg: rgba(255, 255, 255, 0.95);
+            --card-back-bg: #fff9e6;
+            --accent-color: #a832b8;
+            --sub-text: #0097a7;
+            --border-color: #fbc02d;
+        }
+
+        /* 4. KICK BUTTOWSKI (LIGHT) */
+        [data-theme="kick"] {
+            --nav-bg: rgba(245, 245, 245, 0.95);
+            --text-color: #111;
+            --card-front-bg: rgba(255, 255, 255, 0.95);
+            --card-back-bg: #fdeded;
+            --accent-color: #d32f2f;
+            --sub-text: #555;
+            --border-color: #111;
+        }
+
+        /* 5. CEDRIC (LIGHT) */
+        [data-theme="cedric"] {
+            --nav-bg: rgba(245, 240, 224, 0.95);
+            --text-color: #2c3e50;
+            --card-front-bg: rgba(253, 251, 247, 0.95);
+            --card-back-bg: #f4ece1;
+            --accent-color: #e74c3c;
+            --sub-text: #7f8c8d;
+            --border-color: #3498db;
+        }
+
+        /* 6. SHINCHAN (LIGHT) */
+        [data-theme="shinchan"] {
+            --nav-bg: rgba(255, 253, 204, 0.95);
+            --text-color: #c0392b;
+            --card-front-bg: rgba(255, 255, 255, 0.95);
+            --card-back-bg: #feffd4;
+            --accent-color: #d32f2f;
+            --sub-text: #27ae60;
+            --border-color: #f1c40f;
+        }
+
+        /* 7. DORAEMON (LIGHT) */
+        [data-theme="doraemon"] {
+            --nav-bg: rgba(224, 242, 254, 0.95);
+            --text-color: #0369a1;
+            --card-front-bg: rgba(255, 255, 255, 0.95);
+            --card-back-bg: #f0f9ff;
+            --accent-color: #ef4444;
+            --sub-text: #0ea5e9;
+            --border-color: #eab308;
+        }
+
+        /* 8. HARRY POTTER (DARK) */
+        [data-theme="harrypotter"] {
+            --nav-bg: rgba(26, 27, 38, 0.95);
+            --text-color: #e2e8f0;
+            --card-front-bg: rgba(30, 32, 48, 0.95);
+            --card-back-bg: #1c1d24;
+            --accent-color: #d4af37;
+            --sub-text: #94a3b8;
+            --border-color: #7a1c1c;
+        }
+
+        /* 9. POWER RANGERS (DARK) */
+        [data-theme="powerrangers"] {
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --text-color: #ffffff;
+            --card-front-bg: rgba(30, 30, 30, 0.95);
+            --card-back-bg: #222;
+            --accent-color: #ff3838;
+            --sub-text: #1e90ff;
+            --border-color: #ffeb3b;
+        }
+
+        /* 10. GEEBOOMBAA (DARK) */
+        [data-theme="geeboombaa"] {
+            --nav-bg: rgba(31, 19, 44, 0.95);
+            --text-color: #e0b0ff;
+            --card-front-bg: rgba(46, 26, 66, 0.95);
+            --card-back-bg: #241138;
+            --accent-color: #ffdf00;
+            --sub-text: #00e5ff;
+            --border-color: #9b5de5;
+        }
+
+        /* 11. JACKIE CHAN ADVENTURES (DARK) */
+        [data-theme="jackiechan"] {
+            --nav-bg: rgba(24, 20, 16, 0.95);
+            --text-color: #e67e22;
+            --card-front-bg: rgba(38, 30, 24, 0.95);
+            --card-back-bg: #2c1f16;
+            --accent-color: #2ecc71;
+            --sub-text: #bdc3c7;
+            --border-color: #d35400;
+        }
+
+        /* 12. NINJA HATTORI (DARK) */
+        [data-theme="hattori"] {
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --text-color: #38bdf8;
+            --card-front-bg: rgba(30, 41, 59, 0.95);
+            --card-back-bg: #0f172a;
+            --accent-color: #ef4444;
+            --sub-text: #94a3b8;
+            --border-color: #38bdf8;
+        }
+
+        /* ORIGINAL NEON CYBERPUNK */
         [data-theme="cyberpunk"] {
             --nav-bg: rgba(20, 20, 30, 0.95);
             --text-color: #00ffcc;
@@ -29,29 +153,30 @@
             --border-color: #ff007f;
         }
 
-        /* CLASSIC PASTEL JOURNAL overrides */
-        [data-theme="pastel"] {
-            --nav-bg: rgba(255, 240, 245, 0.95);
-            --text-color: #6c5ce7;
-            --card-front-bg: rgba(255, 255, 255, 0.95);
-            --card-back-bg: #e8f4f8;
-            --accent-color: #fd79a8;
-            --sub-text: #a29bfe;
-            --border-color: #74b9ff;
-        }
-
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1974') no-repeat center center fixed; 
-            background-size: cover;
+            background: linear-gradient(135deg, #e0f2fe, #fbcfe8);
             padding: 40px 20px; 
             transition: background 0.5s ease;
         }
 
-        /* Background Changes based on Themes */
-        body[data-theme="cyberpunk"] { background: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1920') no-repeat center center fixed; background-size: cover; }
-        body[data-theme="pastel"] { background: url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1920') no-repeat center center fixed; background-size: cover; }
+        /* ==========================================
+           EXPLICIT CHARACTER, FLOWER & MOVIE ARTWORKS
+           ========================================== */
+        body[data-theme="tulip"] { background: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('./tulips.jpg') repeat center; background-size: 350px; }
+        body[data-theme="dora"] { background: url('./dora.jpg') no-repeat center center fixed; background-size: cover; } /* Jungle Backdrop */
+        body[data-theme="kick"] { background: url('./kick.png') linear-gradient(45deg, #ff3333, #ff3333 10px, #ffffff 10px, #ffffff 20px); } /* Racing Daredevil Stripes */
+        body[data-theme="cedric"] { background: linear-gradient(rgba(255,248,230,0.85), rgba(255,248,230,0.85)), url('https://www.transparenttextures.com/patterns/notebook.png') repeat; } /* Paris Sketchbook Scrapbook */
+        body[data-theme="shinchan"] { background: #fbc02d url('https://i.ibb.co/fFmftm4/shinchan-chocobi.png') repeat; background-size: 120px; } /* Chocobi Star Pattern Backdrop */
+        body[data-theme="doraemon"] { background: #0ea5e9 url('https://i.ibb.co/b3j6YwQ/doraemon-cloud.png') repeat-x bottom; background-size: contain; } /* Time Machine Sky */
+        body[data-theme="harrypotter"] { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1514894780887-121968d00567?q=80&w=1920') no-repeat center center fixed; background-size: cover; } /* Starry Gothic Magic Night Sky */
+        body[data-theme="powerrangers"] { background: #111 url('https://www.transparenttextures.com/patterns/carbon-fibre.png') repeat; box-shadow: inset 0 0 100px rgba(255,0,0,0.3); } /* Super Sentai Suit Grid Texture */
+        body[data-theme="geeboombaa"] { background: radial-gradient(circle, #4a148c 0%, #1a0033 100%); position: relative; } /* Magic Lamp Purple Smoke Room */
+        body[data-theme="jackiechan"] { background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=1920') no-repeat center center fixed; background-size: cover; } /* Mystical Chinese Talisman Jade/Shield background */
+        body[data-theme="hattori"] { background: linear-gradient(rgba(10,15,30,0.8), rgba(10,15,30,0.9)), url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1920') no-repeat center center fixed; background-size: cover; } /* Iga Ninja Clouds Moonlight */
+        body[data-theme="cyberpunk"] { background: #0b0b14 url('https://www.transparenttextures.com/patterns/grid-me.png') repeat; }
 
+        /* The structural styling elements carry forward exactly as previously set */
         .header-nav {
             max-width: 1000px;
             margin: 0 auto 20px auto;
@@ -64,18 +189,12 @@
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             gap: 15px;
+            transition: background 0.3s, color 0.3s;
         }
 
         .header-nav h1 { margin: 0; font-size: 24px; color: var(--accent-color); }
+        .controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-        .controls-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* Interactive controls utility styling */
         .utility-btn {
             background: var(--accent-color);
             border: none;
@@ -88,11 +207,10 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s, background-color 0.2s;
-            width: 40px;
-            height: 40px;
+            transition: transform 0.2s;
+            width: 40px; height: 40px;
         }
-        .utility-btn:hover { transform: scale(1.1); filter: brightness(0.9); }
+        .utility-btn:hover { transform: scale(1.1); }
         .utility-btn.music-on { background: #2ed573; }
 
         .theme-select {
@@ -106,230 +224,65 @@
             outline: none;
         }
 
-        .search-bar-container {
-            max-width: 1000px;
-            margin: 0 auto 30px auto;
-        }
+        .search-bar-container { max-width: 1000px; margin: 0 auto 30px auto; }
         .search-input {
-            width: 100%;
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: none;
-            background: var(--nav-bg);
-            color: var(--text-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            font-size: 16px;
-            outline: none;
-            box-sizing: border-box;
-            transition: all 0.3s;
+            width: 100%; padding: 12px 25px; border-radius: 30px; border: none;
+            background: var(--nav-bg); color: var(--text-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 16px; outline: none;
+            box-sizing: border-box; transition: all 0.3s;
         }
         .search-input:focus { box-shadow: 0 4px 20px var(--accent-color); }
 
         .back-btn {
-            text-decoration: none;
-            background: #333;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: background 0.2s;
+            text-decoration: none; background: #333; color: white; padding: 8px 20px;
+            border-radius: 20px; font-weight: bold; font-size: 14px;
         }
-        .back-btn:hover { background: var(--accent-color); }
 
         .entries-container { max-width: 1000px; margin: 0 auto; }
-        .entries-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 35px; 
-        }
+        .entries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 35px; }
 
-        /* 3D CARD FLIP CONTAINER SYSTEM */
-        .flip-card-container {
-            background-color: transparent;
-            width: 100%;
-            height: 330px;
-            perspective: 1000px;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        /* Trigger flip class handled gracefully by JS click and CSS hover */
-        .flip-card-container:hover .flip-card-inner,
-        .flip-card-container.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
+        .flip-card-container { background-color: transparent; width: 100%; height: 380px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flip-card-container:hover .flip-card-inner, .flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
 
         .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 16px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            padding: 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); padding: 20px; box-sizing: border-box;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
         }
 
-        .card-front {
-            background: var(--card-front-bg); 
-            border-top: 5px solid var(--border-color);
-            color: var(--text-color);
-        }
+        .card-front { background: var(--card-front-bg); border-top: 5px solid var(--border-color); color: var(--text-color); }
+        .card-back { background: var(--card-back-bg); color: var(--text-color); transform: rotateY(180deg); border-top: 5px solid var(--accent-color); justify-content: center; }
 
-        .card-back {
-            background: var(--card-back-bg);
-            color: var(--text-color);
-            transform: rotateY(180deg);
-            border-top: 5px solid var(--accent-color);
-        }
-
-        .card img { 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 3px solid #ff8e53;
-            margin-bottom: 12px;
-        }
-
-        .card h4 { margin: 5px 0; font-size: 18px; }
-        .card .phone-display { font-size: 0.85em; color: var(--sub-text); font-style: italic; margin-bottom: 12px; }
-        .card p { font-size: 14px; line-height: 1.5; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color); text-align: left; margin: 0; width: 100%; box-sizing: border-box; overflow-y: auto; max-height: 140px;}
+        .card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-color); margin-bottom: 8px; }
+        .card h4 { margin: 5px 0 2px 0; font-size: 19px; }
+        .card .phone-display { font-size: 0.85em; color: var(--sub-text); font-style: italic; margin-bottom: 5px; }
         
-        .card p.encrypted-text {
-            font-family: 'Courier New', Courier, monospace;
-            color: #999;
-            background: #f1f1f1;
-            border-left: 3px solid #999;
-            letter-spacing: 1px;
-            word-break: break-all;
-        }
-
-        .flip-hint {
-            font-size: 11px;
-            color: var(--sub-text);
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .no-records {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            grid-column: 1 / -1;
-            font-size: 18px;
-            color: #666;
-        }
-
-        /* PIN PAD SECURE DESIGN MODULE */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .pin-container {
-            background: #1e1e24;
-            color: white;
-            padding: 30px;
-            border-radius: 24px;
-            width: 320px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            position: relative;
-        }
-
-        .pin-container h3 { margin-top: 0; color: #f1f1f1; font-weight: 500; }
+        .personal-meta-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 8px 0; width: 100%; }
+        .dob-badge { font-size: 13px; background: rgba(0,0,0,0.05); padding: 4px 12px; border-radius: 12px; color: var(--text-color); font-weight: 500; }
         
-        .pin-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-            min-height: 12px;
-        }
+        .blood-badge-container { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; }
+        .blood-drop-svg { position: absolute; width: 100%; height: 100%; fill: #ff4757; filter: drop-shadow(0 2px 4px rgba(255,71,87,0.4)); }
+        .blood-group-text { position: relative; color: white; font-weight: bold; font-size: 11px; z-index: 2; margin-top: 6px; }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            background: #444;
-            border-radius: 50%;
-            transition: background 0.1s;
-        }
+        .card p { font-size: 13px; line-height: 1.4; padding: 10px; border-radius: 8px; border-left: 3px solid var(--accent-color); text-align: left; margin: 0 0 10px 0; width: 100%; box-sizing: border-box; overflow-y: auto; max-height: 95px;}
+        .card p.encrypted-text { font-family: 'Courier New', Courier, monospace; color: #999; background: #f1f1f1; border-left: 3px solid #999; letter-spacing: 1px; word-break: break-all; }
+
+        .character-container { width: 100%; background: rgba(0, 0, 0, 0.03); border-radius: 8px; padding: 8px 12px; text-align: left; box-sizing: border-box; border-left: 3px solid var(--border-color); font-size: 13px; margin-bottom: 5px; }
+        .flip-hint { font-size: 10px; color: var(--sub-text); margin-top: auto; text-transform: uppercase; letter-spacing: 1px; }
+
+        .no-records { text-align: center; padding: 40px; background: white; border-radius: 12px; grid-column: 1 / -1; font-size: 18px; color: #666; }
+
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 3000; justify-content: center; align-items: center; }
+        .pin-container { background: #1e1e24; color: white; padding: 30px; border-radius: 24px; width: 320px; text-align: center; }
+        .pin-dots { display: flex; justify-content: center; gap: 12px; margin: 20px 0; min-height: 12px; }
+        .dot { width: 12px; height: 12px; background: #444; border-radius: 50%; }
         .dot.active { background: #ff6b6b; box-shadow: 0 0 8px #ff6b6b; }
-
-        .pin-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .pin-btn {
-            background: #2a2a35;
-            border: none;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            border-radius: 50%;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.1s;
-        }
-        .pin-btn:active, .pin-btn:hover { background: #3e3e4f; }
+        .pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; }
+        .pin-btn { background: #2a2a35; border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 50%; cursor: pointer; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
         .pin-btn.action-btn { font-size: 14px; background: transparent; color: #aaa; }
-
         .shake { animation: shakeAnim 0.4s ease-in-out; }
-        @keyframes shakeAnim {
-            0%, 100% { transform: translateX(0); }
-            20%, 60 { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
-        }
-
-        /* Lock Vault Animation Panel Overlay */
-        .lock-overlay {
-            display: none;
-            position: absolute;
-            top:0; left:0; width:100%; height:100%;
-            background: #1e1e24;
-            border-radius: 24px;
-            z-index: 10;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lock-icon {
-            font-size: 50px;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .unlock-animation { transform: scale(1.3) rotate(-15deg); }
+        @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
     </style>
 </head>
 <body id="pageBody">
@@ -339,35 +292,42 @@
     <audio id="bgMusic" src="bg-music.mp3" preload="auto" loop></audio>
 
     <div class="header-nav">
-        <h1>📖 Ram's Slambook Gallery</h1>
+        <h1>📖 Ram's Vault Room</h1>
         <div class="controls-wrapper">
             <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
-                <option value="default">🎨 Default Theme</option>
-                <option value="cyberpunk">⚡ Neon Cyberpunk</option>
-                <option value="pastel">🌸 Pastel Journal</option>
+                <optgroup label="💡 Light Modes">
+                    <option value="default">🎨 Default Sky</option>
+                    <option value="tulip">🌸 Tulip Garden</option>
+                    <option value="dora">🎒 Dora Explorer</option>
+                    <option value="kick">🛹 Kick Buttowski</option>
+                    <option value="cedric">💼 Cedric Vintage</option>
+                    <option value="shinchan">🍡 Shinchan Star</option>
+                    <option value="doraemon">🔔 Doraemon Gadget</option>
+                </optgroup>
+                <optgroup label="🌙 Dark Modes">
+                    <option value="harrypotter">⚡ Hogwarts Magic</option>
+                    <option value="powerrangers">⚡ Power Rangers</option>
+                    <option value="geeboombaa">🌀 Geeboombaa Genie</option>
+                    <option value="jackiechan">🥋 Jackie Chan</option>
+                    <option value="hattori">🥷 Ninja Hattori</option>
+                    <option value="cyberpunk">⚡ Neon Cyberpunk</option>
+                </optgroup>
             </select>
             
             <button class="utility-btn" id="musicToggle" onclick="toggleMusic()">🎵</button>
-            
             <button class="utility-btn" id="masterToggle" onclick="openPinModal()">👁️</button>
-            <a href="index.html" class="back-btn">✍️ Sign Slambook</a>
+            <a href="index.html" class="back-btn">✍️ Sign</a>
         </div>
     </div>
 
     <div class="search-bar-container">
-        <input type="text" class="search-input" id="searchBar" placeholder="🔍 Search memory makers by name..." oninput="handleSearch()">
+        <input type="text" class="search-input" id="searchBar" placeholder="🔍 Search memory makers..." oninput="handleSearch()">
     </div>
 
     <div class="modal-overlay" id="pinModal">
         <div class="pin-container" id="pinBox">
-            <div class="lock-overlay" id="lockLoader">
-                <div class="lock-icon" id="lockEmoji">🔒</div>
-                <p style="margin-top:15px; color:#4ecdc4; font-weight:bold;">Opening Vault Room...</p>
-            </div>
-
             <h3>Enter Master Key</h3>
             <div class="pin-dots" id="pinDots"></div>
-            
             <div class="pin-grid">
                 <button class="pin-btn" onclick="pressKey('1')">1</button>
                 <button class="pin-btn" onclick="pressKey('2')">2</button>
@@ -380,9 +340,9 @@
                 <button class="pin-btn" onclick="pressKey('9')">9</button>
                 <button class="pin-btn action-btn" onclick="clearPin()">Clear</button>
                 <button class="pin-btn" onclick="pressKey('0')">0</button>
-                <button class="pin-btn action-btn" style="color: #ff6b6b; font-weight: bold;" onclick="submitPin()">OK</button>
+                <button class="pin-btn action-btn" style="color: #ff6b6b;" onclick="submitPin()">OK</button>
             </div>
-            <button class="back-btn" style="margin-top:20px; background:#2a2a35; width:100%; border:none; box-sizing:border-box;" onclick="closePinModal()">Cancel</button>
+            <button class="back-btn" style="margin-top:20px; width:100%; border:none; display:block;" onclick="closePinModal()">Cancel</button>
         </div>
     </div>
 
@@ -396,170 +356,79 @@
         const SUPABASE_URL = "https://vxgcugpbwrjhqlqtiuku.supabase.co";
         const SUPABASE_KEY = "sb_publishable_J9urn-pWkAydGSzvsnASOQ_1wAdGBfD";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
         const TARGET_KEY = "0702200219062000";
-        let typedPin = "";
-        let isMasterUnlocked = false;
-        let isMusicPlaying = false;
-        let globalEntriesCache = [];
+        let typedPin = ""; let isMasterUnlocked = false; let isMusicPlaying = false; let globalEntriesCache = [];
 
-        // Haptic Audio Router Instantiations
-        function playSfx(audioId) {
-            const sound = document.getElementById(audioId);
-            if(sound) {
-                sound.currentTime = 0;
-                sound.play().catch(e => console.log("Audio play blocked until interaction"));
-            }
-        }
-
-        function toggleMusic() {
-            const bgMusic = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicToggle');
-            if(!isMusicPlaying) {
-                bgMusic.play().catch(e => console.log("Music error context matching setup"));
-                btn.classList.add('music-on');
-                isMusicPlaying = true;
-            } else {
-                bgMusic.pause();
-                btn.classList.remove('music-on');
-                isMusicPlaying = false;
-            }
-        }
-
-        // Color Theme State Setter
-        function changeTheme(themeValue) {
-            const body = document.getElementById('pageBody');
-            if(themeValue === 'default') {
-                body.removeAttribute('data-theme');
-            } else {
-                body.setAttribute('data-theme', themeValue);
-            }
-        }
-
-        // Custom Numeric Keyboard Tracker Modules
-        function updatePinDots() {
-            const container = document.getElementById('pinDots');
-            container.innerHTML = '';
-            for(let i=0; i<Math.max(typedPin.length, 4); i++) {
-                const dot = document.createElement('div');
-                dot.className = i < typedPin.length ? 'dot active' : 'dot';
-                container.appendChild(dot);
-            }
-        }
-
-        function pressKey(num) {
-            playSfx('sfxClick');
-            if(typedPin.length < 20) {
-                typedPin += num;
-                updatePinDots();
-            }
-        }
-
-        function clearPin() {
-            playSfx('sfxClick');
-            typedPin = "";
-            updatePinDots();
-        }
-
-        function openPinModal() {
-            if(isMasterUnlocked) {
-                isMasterUnlocked = false;
-                document.getElementById('masterToggle').innerHTML = "👁️";
-                renderGrid(globalEntriesCache);
-                return;
-            }
-            clearPin();
-            document.getElementById('pinModal').style.display = 'flex';
-        }
-
-        function closePinModal() {
-            document.getElementById('pinModal').style.display = 'none';
-        }
-
+        function playSfx(id) { const s = document.getElementById(id); if(s){s.currentTime=0; s.play().catch(()=>{});} }
+        function toggleMusic() { const m = document.getElementById('bgMusic'); const b = document.getElementById('musicToggle'); if(!isMusicPlaying){m.play().catch(()=>{}); b.classList.add('music-on'); isMusicPlaying=true;}else{m.pause(); b.classList.remove('music-on'); isMusicPlaying=false;} }
+        function changeTheme(v) { const b = document.getElementById('pageBody'); if(v==='default'){b.removeAttribute('data-theme');}else{b.setAttribute('data-theme', v);} }
+        function updatePinDots() { const c = document.getElementById('pinDots'); c.innerHTML = ''; for(let i=0; i<Math.max(typedPin.length, 4); i++) { const d = document.createElement('div'); d.className = i < typedPin.length ? 'dot active' : 'dot'; c.appendChild(d); } }
+        function pressKey(n) { playSfx('sfxClick'); if(typedPin.length < 20) { typedPin += n; updatePinDots(); } }
+        function clearPin() { playSfx('sfxClick'); typedPin = ""; updatePinDots(); }
+        function openPinModal() { if(isMasterUnlocked) { isMasterUnlocked = false; document.getElementById('masterToggle').innerHTML = "👁️"; renderGrid(globalEntriesCache); return; } clearPin(); document.getElementById('pinModal').style.display = 'flex'; }
+        function closePinModal() { document.getElementById('pinModal').style.display = 'none'; }
+        
         function submitPin() {
             const box = document.getElementById('pinBox');
-            const loader = document.getElementById('lockLoader');
-            const emoji = document.getElementById('lockEmoji');
-
             if (typedPin === TARGET_KEY) {
                 playSfx('sfxUnlock');
-                loader.style.display = 'flex';
-                setTimeout(() => { emoji.innerHTML = "🔓"; emoji.classList.add('unlock-animation'); }, 200);
-                
-                setTimeout(() => {
-                    isMasterUnlocked = true;
-                    document.getElementById('masterToggle').innerHTML = "🔒";
-                    loader.style.display = 'none';
-                    emoji.innerHTML = "🔒";
-                    emoji.classList.remove('unlock-animation');
-                    closePinModal();
-                    renderGrid(globalEntriesCache);
-                }, 1400);
+                isMasterUnlocked = true;
+                document.getElementById('masterToggle').innerHTML = "🔒";
+                closePinModal();
+                renderGrid(globalEntriesCache);
             } else {
-                box.classList.add('shake');
-                setTimeout(() => { box.classList.remove('shake'); }, 400);
-                clearPin();
+                box.classList.add('shake'); setTimeout(() => box.classList.remove('shake'), 400); clearPin();
             }
         }
 
-        function generateEncryptedLook(text) {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%@&#$';
-            let result = '';
-            for (let i = 0; i < Math.min(text.length, 60); i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return result + '... [ENCRYPTED]';
+        function generateEncryptedLook(t) {
+            const c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%@&#$';
+            let r = ''; for (let i = 0; i < Math.min(t.length, 45); i++) { r += c.charAt(Math.floor(Math.random() * c.length)); }
+            return r + '... [ENCRYPTED]';
         }
 
-        function maskPhoneNumber(phone) {
-            if (!phone || phone === 'N/A') return 'N/A';
-            const cleanPhone = phone.toString().trim();
-            if (cleanPhone.length < 4) return 'XXXX';
-            
-            const firstPart = cleanPhone.slice(0, 2);
-            const lastPart = cleanPhone.slice(-2);
-            const maskedLength = cleanPhone.length - 4;
-            return `${firstPart}${'X'.repeat(maskedLength > 0 ? maskedLength : 4)}${lastPart}`;
-        }
+        function maskPhoneNumber(p) { if (!p || p === 'N/A') return 'N/A'; const c = p.toString().trim(); if (c.length < 4) return 'XXXX'; return `${c.slice(0, 2)}${'X'.repeat(c.length - 4)}${c.slice(-2)}`; }
+        function handleSearch() { const q = document.getElementById('searchBar').value.toLowerCase().trim(); const f = globalEntriesCache.filter(i => i.name.toLowerCase().includes(q)); renderGrid(f); }
 
-        // Live Dynamic Filtering Router Logic
-        function handleSearch() {
-            const query = document.getElementById('searchBar').value.toLowerCase().trim();
-            const filtered = globalEntriesCache.filter(item => item.name.toLowerCase().includes(query));
-            renderGrid(filtered);
-        }
-
-        // 3D Card Engine Renderer Injection Setup
         function renderGrid(entries) {
-            const grid = document.getElementById('entriesDisplay');
-            grid.innerHTML = '';
-
-            if(entries.length === 0) {
-                grid.innerHTML = '<div class="no-records">No matched memories found inside this catalog search. 🕵️‍♂️</div>';
-                return;
-            }
+            const grid = document.getElementById('entriesDisplay'); grid.innerHTML = '';
+            if(entries.length === 0) { grid.innerHTML = '<div class="no-records">No matched memories found inside this catalog search. 🕵️‍♂️</div>'; return; }
 
             entries.forEach((item, index) => {
-                const isLatest = (index === 0);
-                const showRaw = isMasterUnlocked || isLatest;
-                
+                const isLatest = (index === 0); const showRaw = isMasterUnlocked || isLatest;
                 const displayMemory = showRaw ? `"${item.fav_mem}"` : generateEncryptedLook(item.fav_mem);
+                const displayCharacter = showRaw ? `"${item.movie_character || 'Not answered!'}"` : generateEncryptedLook(item.movie_character || 'Hidden');
                 const pClass = showRaw ? '' : 'class="encrypted-text"';
                 const hiddenPhone = showRaw ? item.contact_number : maskPhoneNumber(item.contact_number);
+                const userBloodGroup = (item.blood_group || 'O+').toUpperCase().trim();
+                const userDob = item.dob || 'Secret 🎂';
 
                 grid.innerHTML += `
                     <div class="flip-card-container card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
-                            <div class="card-front" style="${isLatest ? 'border-top: 5px solid #ff6b6b;' : ''}">
+                            <div class="card-front">
                                 <img src="${item.avatar_url}" alt="${item.name}">
-                                <h4>${item.name} ${isLatest ? '✨ <small style="font-size:11px; color:#ff6b6b; display:block">Latest</small>' : ''}</h4>
+                                <h4>${item.name} ${isLatest ? '✨ <small style="font-size:10px; color:var(--accent-color); display:block;">Latest</small>' : ''}</h4>
                                 <div class="phone-display">📞 ${hiddenPhone}</div>
-                                <div class="flip-hint">🔄 Tap to open details</div>
+                                <div class="personal-meta-row">
+                                    <div class="dob-badge">🎂 ${userDob}</div>
+                                    <div class="blood-badge-container">
+                                        <svg class="blood-drop-svg" viewBox="0 0 30 40"><path d="M15 0 C23 15, 30 22, 30 29 A 15 15 0 0 1 0 29 C 0 22, 7 15, 15 0 Z"/></svg>
+                                        <div class="blood-group-text">${userBloodGroup}</div>
+                                    </div>
+                                </div>
+                                <div class="flip-hint">🔄 Tap to unveil secrets</div>
                             </div>
                             <div class="card-back">
-                                <h4 style="margin-bottom:15px; font-size:16px; color: var(--accent-color);">Shared Note:</h4>
-                                <p ${pClass}>${displayMemory}</p>
-                                <div class="flip-hint" style="margin-top:15px;">🔄 Tap to turn over</div>
+                                <div class="character-container">
+                                    <strong style="color: var(--accent-color); display:block; font-size:11px; text-transform:uppercase;">🎭 Ram Movie Fit:</strong>
+                                    <span ${pClass}>${displayCharacter}</span>
+                                </div>
+                                <div style="width:100%; text-align:left; margin-top:5px;">
+                                    <strong style="font-size:11px; color: var(--sub-text); text-transform:uppercase; display:block;">💬 Best Shared Memory:</strong>
+                                    <p ${pClass}>${displayMemory}</p>
+                                </div>
+                                <div class="flip-hint">🔄 Tap to turn over</div>
                             </div>
                         </div>
                     </div>
@@ -568,31 +437,11 @@
         }
 
         async function fetchAllEntries() {
-            const grid = document.getElementById('entriesDisplay');
-            
-            const { data: entries, error } = await supabaseClient
-                .from('slambook')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (error) {
-                console.error(error);
-                grid.innerHTML = `<div class="no-records">Error fetching pages: ${error.message}</div>`;
-                return;
-            }
-
-            if (!entries || entries.length === 0) {
-                grid.innerHTML = '<div class="no-records">No pages written yet! Be the first one to sign it. 🥰</div>';
-                return;
-            }
-
-            globalEntriesCache = entries;
-            renderGrid(entries);
+            const { data: entries, error } = await supabaseClient.from('slambook').select('*').order('created_at', { ascending: false });
+            if (error) { document.getElementById('entriesDisplay').innerHTML = `<div class="no-records">Error: ${error.message}</div>`; return; }
+            globalEntriesCache = entries; renderGrid(entries);
         }
-
-        // Run application setup rules
-        updatePinDots();
-        fetchAllEntries();
+        updatePinDots(); fetchAllEntries();
     </script>
 </body>
 </html>
