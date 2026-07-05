@@ -31,6 +31,34 @@
             color: #ff6b6b;
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .master-btn {
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            width: 40px;
+            height: 40px;
+        }
+
+        .master-btn:hover {
+            transform: scale(1.1);
+            background: #ff4757;
+        }
+
         .back-btn {
             text-decoration: none;
             background: #333;
@@ -81,6 +109,15 @@
         .card h4 { margin: 5px 0; font-size: 18px; color: #333; }
         .card .phone-display { font-size: 0.85em; color: #777; font-style: italic; margin-bottom: 12px; }
         .card p { font-size: 14px; color: #555; line-height: 1.5; background: #fffaf0; padding: 12px; border-radius: 8px; border-left: 3px solid #ff6b6b; text-align: left; margin: 0; }
+        
+        .card p.encrypted-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #999;
+            background: #f1f1f1;
+            border-left: 3px solid #999;
+            letter-spacing: 1px;
+            word-break: break-all;
+        }
 
         .no-records {
             text-align: center;
@@ -91,13 +128,142 @@
             font-size: 18px;
             color: #666;
         }
+
+        /* PIN Pad Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pin-container {
+            background: #1e1e24;
+            color: white;
+            padding: 30px;
+            border-radius: 24px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .pin-container h3 { margin-top: 0; color: #f1f1f1; font-weight: 500; }
+        
+        /* Shrouded display dots showing current typing state */
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            min-height: 12px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #444;
+            border-radius: 50%;
+            transition: background 0.1s;
+        }
+        .dot.active { background: #ff6b6b; box-shadow: 0 0 8px #ff6b6b; }
+
+        .pin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .pin-btn {
+            background: #2a2a35;
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px 0;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.1s;
+        }
+        .pin-btn:active, .pin-btn:hover { background: #3e3e4f; }
+        .pin-btn.action-btn { font-size: 14px; background: transparent; color: #aaa; }
+        .pin-btn.action-btn:active { color: #fff; }
+
+        /* Animation Keyframes */
+        .shake { animation: shakeAnim 0.4s ease-in-out; }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* Lock Animation Overlay */
+        .lock-overlay {
+            display: none;
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: #1e1e24;
+            border-radius: 24px;
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lock-icon {
+            font-size: 50px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .unlock-animation { transform: scale(1.3) rotate(-15deg); }
     </style>
 </head>
 <body>
 
     <div class="header-nav">
         <h1>📖 Ram's Slambook Gallery</h1>
-        <a href="index.html" class="back-btn">✍️ Sign Slambook</a>
+        <div class="nav-actions">
+            <button class="master-btn" id="masterToggle" onclick="openPinModal()">👁️</button>
+            <a href="index.html" class="back-btn">✍️ Sign Slambook</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="pinModal">
+        <div class="pin-container" id="pinBox">
+            <div class="lock-overlay" id="lockLoader">
+                <div class="lock-icon" id="lockEmoji">🔒</div>
+                <p style="margin-top:15px; color:#4ecdc4; font-weight:bold;">Access Granted...</p>
+            </div>
+
+            <h3>Enter Master Key</h3>
+            <div class="pin-dots" id="pinDots"></div>
+            
+            <div class="pin-grid">
+                <button class="pin-btn" onclick="pressKey('1')">1</button>
+                <button class="pin-btn" onclick="pressKey('2')">2</button>
+                <button class="pin-btn" onclick="pressKey('3')">3</button>
+                <button class="pin-btn" onclick="pressKey('4')">4</button>
+                <button class="pin-btn" onclick="pressKey('5')">5</button>
+                <button class="pin-btn" onclick="pressKey('6')">6</button>
+                <button class="pin-btn" onclick="pressKey('7')">7</button>
+                <button class="pin-btn" onclick="pressKey('8')">8</button>
+                <button class="pin-btn" onclick="pressKey('9')">9</button>
+                <button class="pin-btn action-btn" onclick="clearPin()">Clear</button>
+                <button class="pin-btn" onclick="pressKey('0')">0</button>
+                <button class="pin-btn action-btn" style="color: #ff6b6b; font-weight: bold;" onclick="submitPin()">OK</button>
+            </div>
+            <button class="back-btn" style="margin-top: 20px; background:#2a2a35; width:100%; border:none; box-sizing:border-box;" onclick="closePinModal()">Cancel</button>
+        </div>
     </div>
 
     <div class="entries-container">
@@ -111,12 +277,136 @@
         const SUPABASE_KEY = "sb_publishable_J9urn-pWkAydGSzvsnASOQ_1wAdGBfD";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        const TARGET_KEY = "0702200219062000";
+        let typedPin = "";
+        let isMasterUnlocked = false;
+        let globalEntriesCache = [];
+
+        // Dynamic Dot Indicator Manager
+        function updatePinDots() {
+            const container = document.getElementById('pinDots');
+            container.innerHTML = '';
+            // Render a dot for every character typed, matching classic fluid OS pin displays
+            for(let i=0; i<Math.max(typedPin.length, 4); i++) {
+                const dot = document.createElement('div');
+                dot.className = i < typedPin.length ? 'dot active' : 'dot';
+                container.appendChild(dot);
+            }
+        }
+
+        function pressKey(num) {
+            if(typedPin.length < 20) {
+                typedPin += num;
+                updatePinDots();
+            }
+        }
+
+        function clearPin() {
+            typedPin = "";
+            updatePinDots();
+        }
+
+        function openPinModal() {
+            if(isMasterUnlocked) {
+                // If clicked while already unlocked, lock the safe room back down
+                isMasterUnlocked = false;
+                document.getElementById('masterToggle').innerHTML = "👁️";
+                renderGrid(globalEntriesCache);
+                return;
+            }
+            clearPin();
+            document.getElementById('pinModal').style.display = 'flex';
+        }
+
+        function closePinModal() {
+            document.getElementById('pinModal').style.display = 'none';
+        }
+
+        function submitPin() {
+            const box = document.getElementById('pinBox');
+            const loader = document.getElementById('lockLoader');
+            const emoji = document.getElementById('lockEmoji');
+
+            if (typedPin === TARGET_KEY) {
+                // Correct Pin Execution Workflow
+                loader.style.display = 'flex';
+                setTimeout(() => { emoji.innerHTML = "🔓"; emoji.classList.add('unlock-animation'); }, 200);
+                
+                setTimeout(() => {
+                    isMasterUnlocked = true;
+                    document.getElementById('masterToggle').innerHTML = "🔒";
+                    loader.style.display = 'none';
+                    emoji.innerHTML = "🔒";
+                    emoji.classList.remove('unlock-animation');
+                    closePinModal();
+                    renderGrid(globalEntriesCache); // Render with decrypted strings
+                }, 1400);
+
+            } else {
+                // Error Sequence Trigger
+                box.classList.add('shake');
+                setTimeout(() => { box.classList.remove('shake'); }, 400);
+                clearPin();
+            }
+        }
+
+        // Fake Encrypted Value Generator
+        function generateEncryptedLook(text) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%@&#$';
+            let result = '';
+            for (let i = 0; i < Math.min(text.length, 60); i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result + '... [ENCRYPTED]';
+        }
+
+        // Phone Masking Logic Engine
+        function maskPhoneNumber(phone) {
+            if (!phone || phone === 'N/A') return 'N/A';
+            const cleanPhone = phone.toString().trim();
+            if (cleanPhone.length < 4) return 'XXXX';
+            
+            const firstPart = cleanPhone.slice(0, 2);
+            const lastPart = cleanPhone.slice(-2);
+            const maskedLength = cleanPhone.length - 4;
+            const middlePart = 'X'.repeat(maskedLength > 0 ? maskedLength : 4);
+            
+            return `${firstPart}${middlePart}${lastPart}`;
+        }
+
+        // UI Grid Rendering Router
+        function renderGrid(entries) {
+            const grid = document.getElementById('entriesDisplay');
+            grid.innerHTML = '';
+
+            entries.forEach((item, index) => {
+                const isLatest = (index === 0);
+                
+                // Show raw text if master state is verified OR item is the newest entry row
+                const showRaw = isMasterUnlocked || isLatest;
+                
+                const displayMemory = showRaw ? `"${item.fav_mem}"` : generateEncryptedLook(item.fav_mem);
+                const pClass = showRaw ? '' : 'class="encrypted-text"';
+                const hiddenPhone = showRaw ? item.contact_number : maskPhoneNumber(item.contact_number);
+
+                grid.innerHTML += `
+                    <div class="card" style="${isLatest ? 'border-top: 5px solid #ff6b6b;' : ''}">
+                        <img src="${item.avatar_url}" alt="${item.name}">
+                        <h4>${item.name} ${isLatest ? '✨ <small style="font-size:11px; color:#ff6b6b; block">Latest</small>' : ''}</h4>
+                        <div class="phone-display">📞 ${hiddenPhone}</div>
+                        <p ${pClass}>${displayMemory}</p>
+                    </div>
+                `;
+            });
+        }
+
         async function fetchAllEntries() {
             const grid = document.getElementById('entriesDisplay');
             
             const { data: entries, error } = await supabaseClient
                 .from('slambook')
                 .select('*')
+                .order('created_at', { ascending: false });
 
             if (error) {
                 console.error(error);
@@ -129,23 +419,12 @@
                 return;
             }
 
-            // Clear loading placeholder
-            grid.innerHTML = '';
-
-            // Map records dynamically inside modern polaroid/scrapbook style elements
-            entries.forEach(item => {
-                grid.innerHTML += `
-                    <div class="card">
-                        <img src="${item.avatar_url}" alt="${item.name}">
-                        <h4>${item.name}</h4>
-                        <div class="phone-display">📞 ${item.contact_number || 'N/A'}</div>
-                        <p>"${item.fav_mem}"</p>
-                    </div>
-                `;
-            });
+            globalEntriesCache = entries; // Save records locally so switching filters doesn't request network again
+            renderGrid(entries);
         }
 
-        // Run query instantly when page triggers
+        // Run bootstrap
+        updatePinDots();
         fetchAllEntries();
     </script>
 </body>
