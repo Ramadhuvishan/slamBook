@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Memories Vault 💝</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1974') no-repeat center center fixed; 
+            background-size: cover;
+            padding: 40px 20px; 
+        }
+
+        .header-nav {
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-nav h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff6b6b;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #333;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #ff6b6b; }
+
+        .entries-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .entries-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            text-align: center;
+            border-top: 5px solid #4ecdc4;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid #ff8e53;
+            margin-bottom: 12px;
+        }
+
+        .card h4 { margin: 5px 0; font-size: 18px; color: #333; }
+        .card .phone-display { font-size: 0.85em; color: #777; font-style: italic; margin-bottom: 12px; }
+        .card p { font-size: 14px; color: #555; line-height: 1.5; background: #fffaf0; padding: 12px; border-radius: 8px; border-left: 3px solid #ff6b6b; text-align: left; margin: 0; }
+
+        .no-records {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            grid-column: 1 / -1;
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-nav">
+        <h1>📖 Ram's Slambook Gallery</h1>
+        <a href="index.html" class="back-btn">✍️ Sign Slambook</a>
+    </div>
+
+    <div class="entries-container">
+        <div class="entries-grid" id="entriesDisplay">
+            <div class="no-records">Gathering memories... 🔍</div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://vxgcugpbwrjhqlqtiuku.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_J9urn-pWkAydGSzvsnASOQ_1wAdGBfD";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function fetchAllEntries() {
+            const grid = document.getElementById('entriesDisplay');
+            
+            const { data: entries, error } = await supabaseClient
+                .from('slambook')
+                .select('*')
+
+            if (error) {
+                console.error(error);
+                grid.innerHTML = `<div class="no-records">Error fetching pages: ${error.message}</div>`;
+                return;
+            }
+
+            if (!entries || entries.length === 0) {
+                grid.innerHTML = '<div class="no-records">No pages written yet! Be the first one to sign it. 🥰</div>';
+                return;
+            }
+
+            // Clear loading placeholder
+            grid.innerHTML = '';
+
+            // Map records dynamically inside modern polaroid/scrapbook style elements
+            entries.forEach(item => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${item.avatar_url}" alt="${item.name}">
+                        <h4>${item.name}</h4>
+                        <div class="phone-display">📞 ${item.contact_number || 'N/A'}</div>
+                        <p>"${item.fav_mem}"</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Run query instantly when page triggers
+        fetchAllEntries();
+    </script>
+</body>
+</html>
